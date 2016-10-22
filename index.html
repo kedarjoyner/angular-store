@@ -6,19 +6,24 @@
      <title>Angular Store</title>
      <meta name="description" content="Store built with Angular via CodeScool">
      <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="PATH">
 
-	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
      <!--[if lt IE 9]>
        <script src = "http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
      <![endif]-->
  </head>
 
  <body>
+   <!-- Where the StoreController is attached -->
+   <div ng-controller="StoreController as store">
+     <h1> {{store.product.name}} </h1>
+     <h2> {{store.product.price}} </h2>
+     <p> {{store.product.description}} </p>
+   </div>
 
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
-  <script type="text/javascript" src="app.js"</script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular-route.min.js"></script>
+  <script type="text/javascript" src="app.js"></script>
  </body>
 
  </html>
