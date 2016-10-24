@@ -15,11 +15,51 @@
 
  <body ng-controller="StoreController as store">
    <!-- Where the StoreController is attached -->
-   <div ng-repeat="product in store.products" ng-hide="store.products.soldOut">
-     <h1> {{product.name}} </h1>
-     <h2> {{product.price}} </h2>
-     <p> {{product.description}} </p>
-     <button ng-show="product.canPurchase"> Add to Cart </button>
+   <div class="container-fluid">
+     <h1>Stock Photography that Doesn't Suck</h1>
+     <ul class="list-group">
+       <li class="list-group-item" ng-repeat="product in store.products" ng-hide="store.products.soldOut">
+         <img ng-src="{{product.images[0].small}}"/>
+           <h3> {{product.name}} </h3>
+           <em>{{product.price | currency }}</em>
+           <p> {{product.description}} </p>
+           <button ng-show="product.canPurchase"> Add to Cart </button>
+           <!-- Tabs -->
+           <section ng-controller="TabController as panel" style="padding-top: 1.5em;">
+             <ul class="nav nav-pills">
+               <li ng-class="{ active:panel.isSelected(1) }">
+                 <!-- tab equals 1 -->
+                 <a href ng-click="panel.selectTab(1)">Description</a>
+               </li>
+               <li ng-class="{ active:panel.isSelected(2) }">
+                 <!-- tab equals 2 -->
+                 <a href ng-click="panel.selectTab(2)">Specifications</a>
+               </li>
+               <li ng-class="{ active:panel.isSelected(3) }">
+                 <!-- tab equals 3 -->
+                 <a href ng-click="panel.selectTab(3)">Reviews</a>
+               </li>
+
+              <!-- Tab Content -->
+              <div style="padding-top: 4em;">
+                <!-- Show panel if right number is selected -->
+                 <div class="panel" ng-show="panel.isSelected(1)">
+                   <h4>Description</h4>
+                   <p> {{product.description}} </p>
+                 </div>
+                 <div class="panel" ng-show="panel.isSelected(2)">
+                   <h4>Specifications</h4>
+                   <blockquote>None Yet</blockquote>
+                 </div>
+                 <div class="panel" ng-show="panel.isSelected(3)">
+                   <h4>Reviews</h4>
+                   <blockquote>None Yet</blockquote>
+                 </div>
+                </ul>
+            </div>
+          </section>
+       </li>
+     </ul>
    </div>
   <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
