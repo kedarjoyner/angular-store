@@ -8,6 +8,7 @@
      <meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
      <!--[if lt IE 9]>
        <script src = "http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
      <![endif]-->
@@ -67,19 +68,20 @@
                      </li>
                    </ul>
 
-                   <form name="reviewForm">
+                    <!-- check if valid before submitting !-->
+                   <form name="reviewForm" ng-controller="ReviewController as reviewCtrl" ng-submit="reviewForm.$valid && reviewCtrl.addReview(product)" novalidate>
                       <!--  Live Preview -->
                       <blockquote>
-                        <strong>Stars: {{review.stars}}</strong>
-                        {{review.body}}
-                        <cite class="clearfix">—{{review.author}}</cite>
+                        <strong>Stars: {{reviewCtrl.review.stars}}</strong>
+                        {{reviewCtrl.review.body}}
+                        <cite class="clearfix">—{{reviewCtrl.review.author}}</cite>
                       </blockquote>
 
                    <h4>Submit a Review</h4>
                    <!-- <form name="reviewForm"> -->
                      <!-- ng-model binds the form element value to the property -->
                      <fieldset class="form-group">
-                       <select ng-model="review.stars" class="form-control" required ng-options="stars for stars in [5,4,3,2,1]"  title="Stars">
+                       <select ng-model="reviewCtrl.review.stars" class="form-control" required ng-options="stars for stars in [5,4,3,2,1]" title="Stars" required>
                           <option value="" disabled selected>Rate this product</option>
                            <!-- <option value="1">1 star</option>
                            <option value="2">2 star</option>
@@ -89,11 +91,13 @@
                        </select>
                      </fieldset>
                      <fieldset class="form-group">
-                       <textarea class="form-control" ng-model="review.body" placeholder="May he force be with you." title="Review"></textarea>
-                     </fielset>
+                       <textarea class="form-control" ng-model="reviewCtrl.review.body" placeholder="May the force be with you." title="Review" required></textarea>
+                     </fieldset>
                     <fieldset class="form-group">
                      <label>by:</label>
-                       <input ng-model="review.author" type="email" placeholder="janedoe@gmail.com" title="Email" />
+                       <input name="email" class="ng-pristine ng-invalid" ng-model="reviewCtrl.review.author" type="email" placeholder="janedoe@gmail.com" title="Email" required/>
+                        <!-- debugging code -->
+                        <div> reviewForm is {{reviewForm.$valid}} </div>
                        <input type="submit" value="Submit Review" />
                     </fieldset>
                    </form>
