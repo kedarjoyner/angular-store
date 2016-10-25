@@ -1,0 +1,86 @@
+<section style="padding-top: 1.5em;">
+  <ul class="nav nav-pills">
+    <li ng-class="{ active:panel.isSelected(1) }">
+      <!-- tab equals 1 -->
+      <a href ng-click="panel.selectTab(1)">Description</a>
+    </li>
+    <li ng-class="{ active:panel.isSelected(2) }">
+      <!-- tab equals 2 -->
+      <a href ng-click="panel.selectTab(2)">Specifications</a>
+    </li>
+
+    <li ng-class="{ active:panel.isSelected(3) }">
+      <!-- tab equals 3 -->
+      <a href ng-click="panel.selectTab(3)">Reviews</a>
+    </li>
+
+   <!-- Tab Content -->
+   <div style="padding-top: 4em;">
+     <!-- Show panel if right number is selected -->
+      <div class="panel" ng-show="panel.isSelected(1)">
+        <h4>Description</h4>
+        <p> {{product.description}} </p>
+      </div>
+      <div class="panel" ng-show="panel.isSelected(2)">
+        <h4>Specifications</h4>
+        <blockquote>None Yet</blockquote>
+      </div>
+      <div class="panel" ng-show="panel.isSelected(3)">
+        <!--  Product Reviews List -->
+        <ul style="list-style-type: none;">
+          <h4>Reviews</h4>
+          <li ng-repeat="review in product.reviews">
+            <blockquote>
+              <strong>Stars: {{review.stars}}</strong>
+              {{review.body}}
+              <div class="reviewer-name">
+              <cite class="learfix">—{{review.author}}</cite>
+              </div>
+            </blockquote>
+          </li>
+        </ul>
+
+         <!-- check if valid before submitting !-->
+        <form name="reviewForm" ng-controller="ReviewController as reviewCtrl" ng-submit="reviewForm.$valid && reviewCtrl.addReview(product)" novalidate>
+           <!--  Live Preview -->
+           <blockquote>
+             <strong>Stars: {{reviewCtrl.review.stars}}</strong>
+             {{reviewCtrl.review.body}}
+             <cite class="clearfix">—{{reviewCtrl.review.author}}</cite>
+           </blockquote>
+
+        <h4>Submit a Review</h4>
+        <!-- <form name="reviewForm"> -->
+          <!-- ng-model binds the form element value to the property -->
+          <fieldset class="form-group">
+            <select ng-model="reviewCtrl.review.stars" class="form-control" required ng-options="stars for stars in [5,4,3,2,1]" title="Stars" required>
+               <option value="" disabled selected>Rate this product</option>
+                <!-- <option value="1">1 star</option>
+                <option value="2">2 star</option>
+                <option value="3">3 star</option>
+                <option value="4">4 star</option>
+                <option value="2">5 star</option> -->
+            </select>
+          </fieldset>
+          <fieldset class="form-group">
+            <textarea class="form-control" ng-model="reviewCtrl.review.body" placeholder="May the force be with you." title="Review" required></textarea>
+          </fieldset>
+         <fieldset class="form-group">
+          <label>by:</label>
+            <input name="email" class="ng-pristine ng-invalid" ng-model="reviewCtrl.review.author" type="email" placeholder="janedoe@gmail.com" title="Email" required/>
+             <!-- debugging code -->
+             <div> reviewForm is {{reviewForm.$valid}} </div>
+            <input type="submit" value="Submit Review" />
+         </fieldset>
+        </form>
+        <!-- <blockquote ng-repeat="review in product.reviews">
+          <b>Stars: {{review.stars}}</b>
+          {{review.body}}
+          <div class="reviewer-name">
+          <cite>—{{review.author}}</cite>
+          </div>
+        </blockquote> -->
+      </div>
+     </ul>
+ </div>
+</section>
