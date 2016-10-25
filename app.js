@@ -40,6 +40,18 @@
           small: 'https://unsplash.it/300?image=1060',
           large:'https://unsplash.it/500/?image=1060'
         }
+      ],
+      reviews: [
+        {
+          stars: 5,
+          body: "I love this image!",
+          author: "joe@thomas.com"
+        },
+        {
+          stars: 1,
+          body: "I use this one all the time!",
+          author: "kedar@gmail.com"
+        }
       ]
     },
     {
@@ -52,6 +64,18 @@
         {
           small: 'https://unsplash.it/300?image=862',
           large:'https://unsplash.it/500?image=862'
+        }
+      ],
+      reviews: [
+        {
+          stars: 5,
+          body: "I love this image!",
+          author: "joe@thomas.com"
+        },
+        {
+          stars: 1,
+          body: "I use this one all the time!",
+          author: "kedar@gmail.com"
         }
       ]
     }
