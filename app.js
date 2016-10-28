@@ -1,10 +1,15 @@
 (function(){
-  var app = angular.module('store', ['ngRoute']);
+  var app = angular.module('store', ['store-products'] /*['ngRoute']*/);
 
 // controller for stock photography items
-  app.controller('StoreController',function() {
-      this.products = photos;
-  });
+  app.controller('StoreController',[ '$http', function($http) {
+      // this.products = photos;
+      var store = this;
+      store.products = [];
+      $http.get('/products.json').success(function(data) {
+        store.products = data;
+    });
+  }]);
 
 /*
 // controller for panel tabs
@@ -38,94 +43,4 @@ app.controller('ReviewController', function() {
     this.review = {};
   };
 });
-
-// Custom Directives
-app.directive('productTitle', function(){
-  return {
-    // element directive
-    restrict: 'E',
-    // URL of template
-    templateUrl: 'product-title.html'
-  };
-});
-
-app.directive('productPanels', function(){
-  return {
-    restrict: 'E',
-    templateUrl: 'product-panels.html',
-    controller:function(){
-      // makes tab a propety of our controller
-      // initializes tab property and sets value to 1
-        this.tab = 1;
-
-      // set tab equal to passed-in number
-      // sets tab value when link inside tab clicked
-      this.selectTab = function(setTab) {
-        this.tab = setTab;
-      };
-      // check if current tab is equal to the tab we're checking
-      //  accepts a value and returns whether that value matches this.tab
-      // comparison function - will return either true or false
-      this.isSelected = function(checkTab){
-        // returns descriptions so that they display on page
-        return this.tab === checkTab;
-      };
-    },
-    controllerAs: 'panel'
-  };
-});
-
-  var photos = [
-    {
-      name: 'Coffee',
-      price: 2.95,
-      description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam lobortis nibh eros, nec faucibus lorem scelerisque quis. Aliquam nec dolor accumsan, consectetur purus eu, accumsan turpis. ',
-      canPurchase: true,
-      soldOut: false,
-      images: [
-        {
-          small: 'https://unsplash.it/300?image=1060',
-          large:'https://unsplash.it/500/?image=1060'
-        }
-      ],
-      reviews: [
-        {
-          stars: 5,
-          body: "I love this image!",
-          author: "joe@thomas.com"
-        },
-        {
-          stars: 1,
-          body: "I use this one all the time!",
-          author: "kedar@gmail.com"
-        }
-      ]
-    },
-    {
-      name: "New York City",
-      price: 5.95,
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam lobortis nibh eros, nec faucibus lorem scelerisque quis. Aliquam nec dolor accumsan, consectetur purus eu, accumsan turpis. ",
-      canPurchase: true,
-      soldOut: false,
-      images: [
-        {
-          small: 'https://unsplash.it/300?image=862',
-          large:'https://unsplash.it/500?image=862'
-        }
-      ],
-      reviews: [
-        {
-          stars: 5,
-          body: "I love this image!",
-          author: "joe@thomas.com"
-        },
-        {
-          stars: 1,
-          body: "I use this one all the time!",
-          author: "kedar@gmail.com"
-        }
-      ]
-    }
-  ];
-
 })();
